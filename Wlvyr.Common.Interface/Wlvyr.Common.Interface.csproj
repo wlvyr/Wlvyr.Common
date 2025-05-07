@@ -1,14 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
     <PackageId>Wlvyr.Common.Interface</PackageId>
-    <Version>0.1.0.2</Version>
     <Authors>wlvyr</Authors>
     <Description>This library provides an interface for configuring common steps (e.g. DI configuration) separating configuration and bootstrap from Wlvyr.Common.</Description>
+    <Version>0.2.0.0</Version>
+    <PackageReleaseNotes>
+      Added 
+      
+      - AppEnvironment enum, used by IAppSettings
+
+      Breaking Changes
+      
+      - All interfaces are now in Wlvyr.Common.Interface.Configuration. (previously there were Wlvyr.Common.Interface.DI and Wlvyr.Common.Interface.Mapper)
+      - IAppSettings
+        - removed  IsProductionEnv property
+        - removed  EnvironmentName property
+
+    </PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>

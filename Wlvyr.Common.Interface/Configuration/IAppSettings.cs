@@ -1,3 +1,9 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) wlvyr. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+
 namespace Wlvyr.Common.Interface.Configuration;
 
 /// <summary>
@@ -5,8 +11,7 @@ namespace Wlvyr.Common.Interface.Configuration;
 /// </summary>
 public interface IAppSettings
 {
-    bool IsProductionEnv { get; }
-    string EnvironmentName { get; }
+    AppEnvironment Environment { get; init; }
     string GetConnectionString(string name);
 
     /// <summary>
