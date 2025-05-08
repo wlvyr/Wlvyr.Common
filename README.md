@@ -1,6 +1,6 @@
 # Common.NET
 
-Wlvyr.Common is a library created to aid in common project steps.
+Wlvyr.Common is a library created to aid in common project setup.
 
 ## Dependency Injection
 
@@ -14,6 +14,8 @@ using SimpleInjector;
 
 using Wlvyr.Common.Configuration;
 using Wlvyr.Common.Reflection;
+
+namespace MainProject;
 
 public static void Main(){
 
@@ -48,6 +50,26 @@ public static void Main(){
 
 ```
 
+Then an implementing IDIConfig will look like
+
+```cs
+
+// In Some project that doesn't have to be in the same project as DIBootstrap init nor the main application project.
+using SimpleInjector;
+
+using Wlvyr.Common.Interface.Configuration;
+
+namespace SomeProject;
+
+public class SomeDIConfig : IDIConfig<Container, SomeAppSetting> {
+
+    public void Configure(Container container, SomeAppSetting configuration){
+        container.Register<ILogger, FileLogger>();
+    }
+}
+
+```
+
 ## Mapper
 
 Allows project to define their own mapping configuration. The project doesn't require AutoMapper to be used but is based on it. To setup get all `Wlvyr.Common.Interface.Mappers.IMapperConfig<TConfigurer>` implementations, from relevant workspace projects, and initialize.
@@ -59,6 +81,8 @@ Example usage:
 using AutoMapper;
 using Wlvyr.Common.Configuration;
 using Wlvyr.Common.Reflection;
+
+namespace MainProject;
 
 public static void Main()
 {
@@ -81,6 +105,26 @@ public static void Main()
     // b.Mapper; can now be accessed. b.Mapper will throw an error if it has not been initialized.
     // b.Mapper can be registered to a DI container. e.g. diBootstrap.DIContainer.RegisterInstance(b.Mapper);
 }
+```
+
+Then an implementing IMapperConfig will look like
+
+```cs
+
+// In Some project that doesn't have to be in the same project as MapperBootstrap init nor the main application project.
+using SimpleInjector;
+
+using Wlvyr.Common.Interface.Configuration;
+
+namespace SomeProject;
+
+public class SomeMapperConfig : IMapperConfig<MapperConfigurationExpression> {
+
+    public void Configure(MapperConfigurationExpression cfg){
+        cfg.CreateMap<Employee, EmployeeDTO>();
+    }
+}
+
 ```
 
 ## License
