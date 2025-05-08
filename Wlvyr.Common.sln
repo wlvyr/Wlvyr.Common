@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wlvyr.Common", "Wlvyr.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wlvyr.Common.Interface", "Wlvyr.Common.Interface\Wlvyr.Common.Interface.csproj", "{42A48D68-074C-4A77-BFDC-526E138CBE90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wlvyr.Common.SimpleInjectorTools", "Wlvyr.Common.SimpleInjectorTools\Wlvyr.Common.SimpleInjectorTools.csproj", "{6B3CD94C-1642-458E-8A3C-3BE9F9EDFB90}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wlvyr.Common.AutoMapperTools", "Wlvyr.Common.AutoMapperTools\Wlvyr.Common.AutoMapperTools.csproj", "{69777AB0-C847-4F89-9BBC-27F1AF5379F3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

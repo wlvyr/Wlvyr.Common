@@ -1,6 +1,9 @@
-using Wlvyr.Common.Interface.Configuration;
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) wlvyr. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
 
-namespace Wlvyr.Common.Interface.DI;
+namespace Wlvyr.Common.Interface.Configuration;
 
 /// <summary>
 /// DI Configuration of the project implementing this interface.

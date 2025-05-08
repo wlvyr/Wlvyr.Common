@@ -15,9 +15,32 @@
     <Nullable>enable</Nullable>
 
     <PackageId>Wlvyr.Common</PackageId>
-    <Version>0.1.0.2</Version>
     <Authors>wlvyr</Authors>
     <Description>This library aids in common project steps such (e.g. DI bootstrap).</Description>
+    <Version>0.2.0.0</Version>
+    <PackageReleaseNotes>
+      
+      - Restructured the project to be more coherent.
+      - Consolidated other projects into this one after generalizing the implementation.
+      
+      Added 
+      
+      - MappingExtension.CreateMapperConfigs
+      - DIExtension.CreateDIConfigs
+      - IAppSettingsExtensions
+      - Wlvyr.Common.Reflection
+        - AssemblyExtensions
+        - AssemblyHelper.GetAssemblies
+
+
+      Breaking Changes
+      
+      - All previously existing interfaces are now in Wlvyr.Common.Configuration namespace.
+      - Removed `BootstrapConfiguration`, repalced with `DIBootstrapConfiguration`
+        - DIBootstrap uses this.
+      - BaseAppSettings environment property changed.
+
+    </PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>

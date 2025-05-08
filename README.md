@@ -9,56 +9,78 @@ To help facilitate in loading dependency injection (DI) service across different
 An example in initializing DIBootstrap with SimpleInjector:
 
 ```cs
-using Microsoft.Extensions.Configuration;
-using Wlvyr.Common.SimpleInjectorTools
 
+using SimpleInjector;
 
-IEnumerable<Assembly> assemblies; // Pretend you have an IEnumerable of assemblies of all your projects.
-var bootstrapConfig = new BootstrapConfiguration(assemblies, "Some_Environment");
+using Wlvyr.Common.Configuration;
+using Wlvyr.Common.Reflection;
 
-var appSettings = new AppSettings(new ConfigurationBuilder().AddJsonFile("appsettings.json") .Build());
+public static void Main(){
 
-var diContainerFactory = () => new SimpleInjector.Container(); // You can use another DI library's container.
+    // Example to get configuration.
+    var builder = WebApplication.CreateBuilder(args);
+    // Access IConfiguration
+    IConfiguration configuration = builder.Configuration; // or new ConfigurationBuilder().AddJsonFile("appsettings.json") .Build()
 
-var d = new DIBootstrap<SimpleInjector.Container, Configuration.BaseAppSettings>( 
-    bootstrapConfig,
-    appSettings,
-    diContainerFactory,
-    () => DIConfigHelper.GetIDIConfigs<SimpleInjector.Container, Configuration.BaseAppSettings>(diContainerFactory, assemblies)
-);
+    IEnumerable<Assembly> assemblies = AssemblyHelper.GetAssemblies(
+                                            nameIncludes: new HashSet<string>(){ 
+                                                    "asssembly.only-included-project.name1", 
+                                                    "assembly.only-included-project.name2" 
+                                            }
+                                        );
 
-d.Initialize();
+    var diConfig = new  DIBootstrapConfiguration<SomeAppSettings>(
+        new SomeAppSettings(configuration),
+        new HashSet<string> { "Some.Namespace.ExcludedDIConfig" } // excluded IDIconfig from being configured
+    );
 
-// d.DIContainer can now be used. example next step: Verify the DI container of your choice that it did bootstrap properly (e.g. SimpleInjector Container has a Verify method.) 
+    var diBootstrap = new DIBootstrap(
+        diConfig,
+        () => new SimpleInjector.Container(); 
+        () => assemblies.CreateDIConfigs<Container,SomeAppSettings>(diConfig.ExcludedDIConfigFullNames) // from DIExtensions.CreateDIConfigs<Container,SomeAppSettings>
+    );
+
+    diBootstrap.Initialize();
+
+    // d.DIContainer can now be used. example next step: Verify the DI container of your choice that it did bootstrap properly. (DIContainer.Verify is from SimpleInjector)
+    d.DIContainer.Verify();   
+}
 
 ```
 
-Note: BootstrapConfiguration assumes all DI libraries require assemblies to be an input to registering or loading runtime objects. This might not be the case. If so, will have to refactor the class.
-
 ## Mapper
 
-Allows project to define their own mapping configuration. The project doesn't require AutoMapper to be used but is based on it. It is basically similar on how DIBootstrap works: Get all `Wlvyr.Common.Interface.Mappers.IMapperConfig<TConfigurer>` to load their configuration then initialize.
+Allows project to define their own mapping configuration. The project doesn't require AutoMapper to be used but is based on it. To setup get all `Wlvyr.Common.Interface.Mappers.IMapperConfig<TConfigurer>` implementations, from relevant workspace projects, and initialize.
 
 Example usage:
 
 ```cs
 
- using Wlvyr.Common.AutoMapperTools;
+using AutoMapper;
+using Wlvyr.Common.Configuration;
+using Wlvyr.Common.Reflection;
 
- public static System.Threading.Tasks.Task Main(string[] args)
-    {
-        IEnumerable<Assembly> assemblies; // Pretend you have an IEnumerable of assemblies of all your projects.
-        var b = new MapperBootstrap<IMapper, MapperConfigurationExpression>(
-            MapperConfigHelper.CfgExpFactory, 
-            MapperConfigHelper.MapperFactory,
-            () => MapperConfigHelper.GetMapperConfigs(assemblies)
-        );
+public static void Main()
+{
+    IEnumerable<Assembly> assemblies = AssemblyHelper.GetAssemblies(
+                        new HashSet<string>(){ "asssembly.project.name1", "assembly.project.name2" }
+                 );
 
-        b.Initialize();
+    Func<MapperConfigurationExpression> cfgExpFactory = () => MapperConfigurationExpression();
+    Func<MapperConfigurationExpression, IMapper> mapperFactory = (cfg) => new MapperConfiguration(cfg).CreateMapper();
+    Func<IEnumerable<IMapperConfig<MapperConfigurationExpression>>> mapperConfigsFactory = assemblies.CreateMapperConfigs<MapperConfigurationExpression>(); // from MapperConfigHelper.
 
-        // b.Mapper; can now be accessed. b.Mapper will throw an error if it has not been initialized.
-        // b.Mapper can be registered to a DI container. e.g. diBootstrap.DIContainer.RegisterInstance(b.Mapper);
-    }
+    var b = new MapperBootstrap<IMapper, MapperConfigurationExpression>(
+        cfgExpFactory, 
+        mapperFactory,
+        mapperConfigsFactory,
+    );
+
+    b.Initialize();
+
+    // b.Mapper; can now be accessed. b.Mapper will throw an error if it has not been initialized.
+    // b.Mapper can be registered to a DI container. e.g. diBootstrap.DIContainer.RegisterInstance(b.Mapper);
+}
 ```
 
 ## License
