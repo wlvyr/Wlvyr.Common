@@ -21,7 +21,7 @@ public class MapperBootstrapTests
     {
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => new MapperBootstrap<object, object>(
-            null,
+            null!,
             cfg => new object(),
             () => new List<IMapperConfig<object>>()
         ));
@@ -33,7 +33,7 @@ public class MapperBootstrapTests
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => new MapperBootstrap<object, object>(
             () => new object(),
-            null,
+            null!,
             () => new List<IMapperConfig<object>>()
         ));
     }
@@ -45,7 +45,7 @@ public class MapperBootstrapTests
         Assert.Throws<ArgumentNullException>(() => new MapperBootstrap<object, object>(
             () => new object(),
             cfg => new object(),
-            null
+            null!
         ));
     }
 

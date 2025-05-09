@@ -31,15 +31,15 @@ public static void Main(){
                                             }
                                         );
 
-    var diConfig = new  DIBootstrapConfiguration<SomeAppSettings>(
-        new SomeAppSettings(configuration),
-        new HashSet<string> { "Some.Namespace.ExcludedDIConfig" } // excluded IDIconfig from being configured
+    var diConfig = new  DIBootstrapConfiguration<AppSettings>(
+        new AppSettings(configuration),
+        new HashSet<string> { "Some.Namespace.ExcludedDIConfig" } // excluded IDIconfig from being configured. empty for all to be included
     );
 
     var diBootstrap = new DIBootstrap(
         diConfig,
-        () => new SimpleInjector.Container(); 
-        () => assemblies.CreateDIConfigs<Container,SomeAppSettings>(diConfig.ExcludedDIConfigFullNames) // from DIExtensions.CreateDIConfigs<Container,SomeAppSettings>
+        () => new SimpleInjector.Container(), 
+        () => assemblies.CreateDIConfigs<Container, TAppSettings>(diConfig.ExcludedDIConfigFullNames) // from DIExtensions.CreateDIConfigs<Container, AppSettings>
     );
 
     diBootstrap.Initialize();
@@ -92,7 +92,7 @@ public static void Main()
 
     Func<MapperConfigurationExpression> cfgExpFactory = () => MapperConfigurationExpression();
     Func<MapperConfigurationExpression, IMapper> mapperFactory = (cfg) => new MapperConfiguration(cfg).CreateMapper();
-    Func<IEnumerable<IMapperConfig<MapperConfigurationExpression>>> mapperConfigsFactory = assemblies.CreateMapperConfigs<MapperConfigurationExpression>(); // from MapperConfigHelper.
+    Func<IEnumerable<IMapperConfig<MapperConfigurationExpression>>> mapperConfigsFactory = () => assemblies.CreateMapperConfigs<MapperConfigurationExpression>(); // from MapperConfigHelper.
 
     var b = new MapperBootstrap<IMapper, MapperConfigurationExpression>(
         cfgExpFactory, 

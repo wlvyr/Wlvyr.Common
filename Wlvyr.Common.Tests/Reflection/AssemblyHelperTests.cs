@@ -34,7 +34,7 @@ public class AssemblyHelperTests
 
         // Assert
         Assert.NotEmpty(assemblies);
-        Assert.Contains(assemblies, a => a.FullName.IndexOf("system.runtime", StringComparison.OrdinalIgnoreCase) >= 0);
+        Assert.Contains(assemblies, a => a.FullName!.IndexOf("system.runtime", StringComparison.OrdinalIgnoreCase) >= 0);
     }
 
     // TODO: Test for: Adds additional assemblies from bin path (integration-like test).

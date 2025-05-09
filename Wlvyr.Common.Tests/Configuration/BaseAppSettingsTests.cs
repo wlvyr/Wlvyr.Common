@@ -35,7 +35,7 @@ public class BaseAppSettingsTests
     public void Constructor_WithNullConfiguration_ThrowsArgumentNullException()
     {
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => new TestAppSettings(null));
+        Assert.Throws<ArgumentNullException>(() => new TestAppSettings(null!));
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class BaseAppSettingsTests
     {
         // Arrange
         var configMock = new Mock<IConfiguration>();
-        configMock.Setup(c => c["DOTNET_ENVIRONMENT"]).Returns((string)null);
+        configMock.Setup(c => c["DOTNET_ENVIRONMENT"]).Returns((string)null!);
         configMock.Setup(c => c["ASPNETCORE_ENVIRONMENT"]).Returns("Production");
 
         // Act
@@ -87,7 +87,7 @@ public class BaseAppSettingsTests
         // Arrange
         var configMock = new Mock<IConfiguration>();
         configMock.Setup(c => c["DOTNET_ENVIRONMENT"]).Returns("Development");
-        configMock.Setup(c => c["TestKey"]).Returns((string)null);
+        configMock.Setup(c => c["TestKey"]).Returns((string)null!);
         var settings = new TestAppSettings(configMock.Object);
 
         // Act & Assert
@@ -125,7 +125,7 @@ public class BaseAppSettingsTests
         {
             ["DOTNET_ENVIRONMENT"] = "Development",
             ["TestSection:Name"] = "Test"
-        })
+        }!)
         .Build();
 
         var settings = new TestAppSettings(configuration);
@@ -145,7 +145,7 @@ public class BaseAppSettingsTests
         .AddInMemoryCollection(new Dictionary<string, string>
         {
             ["DOTNET_ENVIRONMENT"] = "Development",
-        })
+        }!)
         .Build();
 
         var settings = new TestAppSettings(configuration);
@@ -163,7 +163,7 @@ public class BaseAppSettingsTests
          {
              ["DOTNET_ENVIRONMENT"] = "Development",
              ["ConnectionStrings:TestDb"] = "Server=localhost;Database=TestDb"
-         })
+         }!)
          .Build();
 
         var settings = new TestAppSettings(configuration);
@@ -183,7 +183,7 @@ public class BaseAppSettingsTests
         .AddInMemoryCollection(new Dictionary<string, string>
         {
             ["DOTNET_ENVIRONMENT"] = "Development",
-        })
+        }!)
         .Build();
 
         var settings = new TestAppSettings(configuration);
@@ -192,13 +192,13 @@ public class BaseAppSettingsTests
         Assert.Throws<InvalidOperationException>(() => settings.GetConnectionString("TestDb"));
     }
 
-    private class TestAppSettings : BaseAppSettings
+    private class TestAppSettings : AppSettings
     {
         public TestAppSettings(IConfiguration configuration) : base(configuration) { }
     }
 
     private class TestComplexType
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

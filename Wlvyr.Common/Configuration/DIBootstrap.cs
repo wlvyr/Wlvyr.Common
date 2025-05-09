@@ -15,7 +15,7 @@ namespace Wlvyr.Common.Configuration;
 /// <typeparam name="TAppSettings">The object containing appsettings.json (or possibly App.config). </typeparam>
 /// 
 /// <remark>
-/// Implement the abstract class <see cref="Wlvyr.Common.Configuration.BaseAppSettings"/>. 
+/// Implement the abstract class <see cref="Wlvyr.Common.Configuration.AppSettings"/>. 
 /// Also, use the <se cref="Microsoft.Extensions.Configuration.ConfigurationBuilder" to build the IConfiguration.
 /// </remark>
 public class DIBootstrap<TContainer, TAppSettings> : IBootstrap

@@ -10,9 +10,12 @@ using Wlvyr.Common.Interface.Configuration;
 
 namespace Wlvyr.Common.Configuration;
 
-public abstract class BaseAppSettings : IAppSettings
+/// <summary>
+/// A wrapper to get settings from configuration.
+/// </summary>
+public class AppSettings : IAppSettings
 {
-    public BaseAppSettings(IConfiguration configuration)
+    public AppSettings(IConfiguration configuration)
     {
         this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         this.Environment = this.ParseEnvironment() ?? throw new NullReferenceException($"{nameof(Environment)} is null. Cannot resolve DOTNET_ENVIRONMENT or ASPNETCORE_ENVIRONMENT to an {nameof(AppEnvironment)} enum.");

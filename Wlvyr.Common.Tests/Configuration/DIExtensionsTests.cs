@@ -31,7 +31,7 @@ public class DIExtensionsTests
     {
         public AppEnvironment Environment { get; init; } = AppEnvironment.Development;
 
-        public T Get<T>(string key) => default;
+        public T Get<T>(string key) => default!;
 
         public string GetConnectionString(string name) => string.Empty;
     }

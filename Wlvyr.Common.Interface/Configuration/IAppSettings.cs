@@ -7,7 +7,7 @@
 namespace Wlvyr.Common.Interface.Configuration;
 
 /// <summary>
-/// Class interface of appsettings.json or app.config
+/// Class interface of appsettings.json or app.config or IConfiguration.
 /// </summary>
 public interface IAppSettings
 {

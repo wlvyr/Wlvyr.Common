@@ -22,7 +22,7 @@ public class DIBootstrapTests
     {
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => new DIBootstrap<object, TestAppSettings>(
-            null,
+            null!,
             () => new object(),
             () => new List<IDIConfig<object, TestAppSettings>>()
         ));
@@ -31,7 +31,7 @@ public class DIBootstrapTests
             new DIBootstrapConfiguration<TestAppSettings>(
                 new TestAppSettings(),
                 new HashSet<string>()),
-            null,
+            null!,
             () => new List<IDIConfig<object, TestAppSettings>>()
         ));
 
@@ -40,7 +40,7 @@ public class DIBootstrapTests
                 new TestAppSettings(),
                 new HashSet<string>()),
             () => new object(),
-            null
+            null!
         ));
     }
 
@@ -301,7 +301,7 @@ public class DIBootstrapTests
     {
         public AppEnvironment Environment { get; init; } = AppEnvironment.Development;
 
-        public T Get<T>(string key) => default;
+        public T Get<T>(string key) => default!;
 
         public string GetConnectionString(string name) => string.Empty;
     }
