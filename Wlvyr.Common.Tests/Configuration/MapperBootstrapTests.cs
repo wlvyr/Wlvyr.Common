@@ -64,7 +64,7 @@ public class MapperBootstrapTests
     }
 
     [Fact]
-    public void Initialize_WithNoMapperConfigs_DoesNotCreateMapper()
+    public void Initialize_WithNoMapperConfigs_StillCreatesMapper()
     {
         // Arrange
         bool cfgFactoryCalled = false;
@@ -80,9 +80,9 @@ public class MapperBootstrapTests
         bootstrap.Initialize();
 
         // Assert
-        Assert.False(cfgFactoryCalled);
-        Assert.False(mapperFactoryCalled);
-        Assert.Throws<ArgumentNullException>(() => bootstrap.Mapper); // Mapper should still be null
+        Assert.True(cfgFactoryCalled);
+        Assert.True(mapperFactoryCalled);
+        Assert.NotNull(bootstrap.Mapper);
     }
 
     [Fact]

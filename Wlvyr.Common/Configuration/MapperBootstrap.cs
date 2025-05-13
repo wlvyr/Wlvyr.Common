@@ -25,14 +25,16 @@ public class MapperBootstrap<TMapper, TConfigurer> : IBootstrap
     }
 
     protected TMapper? _mapper;
-    
+
     /// <summary>
     /// The mapper object containing the mapping configurations and allows its use to automap from one type to another.
     /// </summary>
     /// <returns></returns>
-    public TMapper Mapper { get => _mapper ?? 
-                                        throw new ArgumentNullException($"{nameof(Mapper)} is null. Have you tried invoking, Initialize, of {nameof(MapperBootstrap<TMapper, TConfigurer>)}?."); 
-                          }
+    public TMapper Mapper
+    {
+        get => _mapper ??
+                                        throw new ArgumentNullException($"{nameof(Mapper)} is null. Have you tried invoking, Initialize, of {nameof(MapperBootstrap<TMapper, TConfigurer>)}?.");
+    }
 
     protected Func<TConfigurer> CfgExpFactory { get; }
     protected Func<TConfigurer, TMapper> MapperFactory { get; }
@@ -40,14 +42,9 @@ public class MapperBootstrap<TMapper, TConfigurer> : IBootstrap
 
     public void Initialize()
     {
-        var autoMapperConfigs = this.MapperConfigsFactory();
-
-        if (!autoMapperConfigs.Any())
-        {
-            return;
-        }
-
+        var autoMapperConfigs = this.MapperConfigsFactory() ?? Enumerable.Empty<IMapperConfig<TConfigurer>>();
         var cfg = this.CfgExpFactory();
+
         foreach (var config in autoMapperConfigs)
         {
             config.Configure(cfg);

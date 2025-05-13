@@ -17,14 +17,11 @@
     <PackageId>Wlvyr.Common</PackageId>
     <Authors>wlvyr</Authors>
     <Description>This library aids in common project steps such (e.g. DI bootstrap).</Description>
-    <Version>0.2.1</Version>
+    <Version>0.2.2</Version>
     <PackageReleaseNotes>
-      
-      Breaking Changes
-      
-      - BaseAppSettings changed to AppSettings
-        - removed abstract modifier
-
+      - Mapper 
+        - will initialize, although empty, when there are no IMapperConfig implementation present.
+        - won't throw an exception anymore when there are no IMapperConfig implementation present.
     </PackageReleaseNotes>
   </PropertyGroup>
 
