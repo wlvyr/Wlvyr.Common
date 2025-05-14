@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="SimpleInjector" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wlvyr.Common.Data\Wlvyr.Common.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <PackageId>Wlvyr.Common.DI.SimpleInjector</PackageId>
+    <Authors>wlvyr</Authors>
+    <Description>A helper library that simplifies common setup patterns and configurations for the SimpleInjector dependency injection container.</Description>
+    <Version>0.1.0</Version>
+    <PackageReleaseNotes>
+       Initial Wlvyr.Common.DI.SimpleInjector. 
+
+       - Currently only provides extension methods for registering repository pattern using IDatabaseExecutor as parameter.
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+</Project>

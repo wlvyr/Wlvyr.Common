@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <PackageId>Wlvyr.Common.Data</PackageId>
+    <Authors>wlvyr</Authors>
+    <Description>Wlvyr.Common.Data is a reusable library that provides an ADO.NET-agnostic abstraction for executing database operations.</Description>
+    <Version>0.1.1</Version>
+    <PackageReleaseNotes>
+       - DatabaseExecutorFactory now throws exception when argument is null.
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wlvyr.Common.Interface\Wlvyr.Common.Interface.csproj" />
+  </ItemGroup>
+
+  
+</Project>
