@@ -91,8 +91,8 @@ public static void Main()
                  );
 
     Func<MapperConfigurationExpression> cfgExpFactory = () => MapperConfigurationExpression();
-    Func<MapperConfigurationExpression, IMapper> mapperFactory = (cfg) => new MapperConfiguration(cfg).CreateMapper();
-    Func<IEnumerable<IMapperConfig<MapperConfigurationExpression>>> mapperConfigsFactory = () => assemblies.CreateMapperConfigs<MapperConfigurationExpression>(); // from MapperConfigHelper.
+    Func<MapperConfigurationExpression, IMapper> mapperFactory = (cfg) => new MapperConfiguration(cfg).CreateMapper();   
+    Func<IEnumerable<IMapperConfig<MapperConfigurationExpression>>> mapperConfigsFactory = () => assemblies.CreateMapperConfigs<MapperConfigurationExpression>(/*optionAppSettings*/); // from MappingExtensions
 
     var b = new MapperBootstrap<IMapper, MapperConfigurationExpression>(
         cfgExpFactory, 
@@ -119,6 +119,21 @@ using Wlvyr.Common.Interface.Configuration;
 namespace SomeProject;
 
 public class SomeMapperConfig : IMapperConfig<MapperConfigurationExpression> {
+
+    public void Configure(MapperConfigurationExpression cfg){
+        cfg.CreateMap<Employee, EmployeeDTO>();
+    }
+}
+
+// if appSettings is not included, in assemblies.CreateMapperConfigs<MapperConfigurationExpression>() this will not be included.
+public class SomeMapperConfigWithAppSettingParam : IMapperConfig<MapperConfigurationExpression> {
+
+    public SomeMapperConfigWithAppSettingParam(AppSettings appSettings){
+        this.AppSettings = appSettings;
+
+    }
+    
+    protected AppSettings AppSettings { get; init; } 
 
     public void Configure(MapperConfigurationExpression cfg){
         cfg.CreateMap<Employee, EmployeeDTO>();

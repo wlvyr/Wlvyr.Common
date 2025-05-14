@@ -17,11 +17,11 @@
     <PackageId>Wlvyr.Common</PackageId>
     <Authors>wlvyr</Authors>
     <Description>This library aids in common project steps such (e.g. DI bootstrap).</Description>
-    <Version>0.2.2</Version>
+    <Version>0.2.3</Version>
     <PackageReleaseNotes>
       - Mapper 
-        - will initialize, although empty, when there are no IMapperConfig implementation present.
-        - won't throw an exception anymore when there are no IMapperConfig implementation present.
+        - MappingExtensions.CreateMapperConfigs now allows IAppSettings to be included
+        - IMapperConfig implementation either have parameterless constructor or constructor with IAppSettings as parameter.
     </PackageReleaseNotes>
   </PropertyGroup>
 
