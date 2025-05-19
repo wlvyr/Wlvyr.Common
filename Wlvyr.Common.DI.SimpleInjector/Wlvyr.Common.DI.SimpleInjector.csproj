@@ -5,6 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wlvyr.Common\Wlvyr.Common.csproj" />
     <ProjectReference Include="..\Wlvyr.Common.Data\Wlvyr.Common.Data.csproj" />
   </ItemGroup>
 
