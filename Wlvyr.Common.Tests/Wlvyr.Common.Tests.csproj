@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Wlvyr.Common\Wlvyr.Common.csproj" />
     <ProjectReference Include="..\Wlvyr.Common.Data\Wlvyr.Common.Data.csproj" />
+    <ProjectReference Include="..\Wlvyr.Common.Security.Vault.HashiCorp\Wlvyr.Common.Security.Vault.HashiCorp.csproj" />
   </ItemGroup>
 
 </Project>

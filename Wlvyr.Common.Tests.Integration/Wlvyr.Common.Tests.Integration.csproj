@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wlvyr.Common.DI.SimpleInjector\Wlvyr.Common.DI.SimpleInjector.csproj" />
+    <ProjectReference Include="..\Wlvyr.Common.Security.Vault.HashiCorp\Wlvyr.Common.Security.Vault.HashiCorp.csproj" />
   </ItemGroup>
 
 </Project>
