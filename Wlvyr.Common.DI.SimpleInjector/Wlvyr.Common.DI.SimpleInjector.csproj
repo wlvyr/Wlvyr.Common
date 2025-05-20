@@ -17,11 +17,11 @@
     <PackageId>Wlvyr.Common.DI.SimpleInjector</PackageId>
     <Authors>wlvyr</Authors>
     <Description>A helper library that simplifies common setup patterns and configurations for the SimpleInjector dependency injection container.</Description>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <PackageReleaseNotes>
-       Initial Wlvyr.Common.DI.SimpleInjector. 
+       Release Notes: 
 
-       - Currently only provides extension methods for registering repository pattern using IDatabaseExecutor as parameter.
+       - Added SimpleInjectorBootstrapFactory.CreateBootstrap to simplify bootstrap creation process.
     </PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
