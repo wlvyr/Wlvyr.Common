@@ -23,6 +23,10 @@
 
        - Currently only provides extension methods for registering repository pattern using IDatabaseExecutor as parameter.
     </PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 </Project>

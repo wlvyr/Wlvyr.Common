@@ -23,6 +23,9 @@
         - MappingExtensions.CreateMapperConfigs now allows IAppSettings to be included
         - IMapperConfig implementation either have parameterless constructor or constructor with IAppSettings as parameter.
     </PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 </Project>
