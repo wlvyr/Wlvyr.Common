@@ -2,7 +2,7 @@
 
 Wlvyr.Common.Data is a reusable library that provides an ADO.NET-agnostic abstraction for executing database operations. It encapsulates common patterns for interacting with relational databases while remaining decoupled from specific providers (e.g., SQL Server, PostgreSQL, MySQL).
 
-Internally uses Dapper. It is a lightweight micro-ORM that works on top of ADO.NET providers. It excels at mapping objects to database command parameters, executing commands, and mapping results back to objects. While it is not a full ORM, it provides an efficient, minimal abstraction layer that allows you to write SQL queries while benefiting from an agnostic approach to the underlying ADO.NET provider.
+Internally, it uses Dapper, which is a lightweight micro-ORM that works on top of ADO.NET providers. It excels at mapping objects to database command parameters, executing commands, and mapping results back to objects. While it is not a full ORM, it provides an efficient, minimal abstraction layer that allows you to write SQL queries while benefiting from an agnostic approach to the underlying ADO.NET provider.
 
 ## Usage
 
@@ -38,7 +38,7 @@ using Wlvyr.Common.Data.SqlServer;
 
 namespace SomeProject.Data;
 
-// Notice that repository assumes executor is meant only for SQL text and not for stored procedure.
+// Notice that the repository assumes executor is properly configured for SQL text, and not for stored procedure.
 public class SomeRepository(IDatabaseExecutor executor)
 {
     public async Task AddSomeAsync(SomeData data)
@@ -77,7 +77,7 @@ public class SomeRepository(IDatabaseExecutor executor)
     }
 }
 
-// Notice that repository assumes executor is meant only for stored procedure calls.
+// Notice that the repository assumes executor is properly configured for stored procedure calls.
 public class SomeStoredProcRepository(IDatabaseExecutor executor)
 {
     public async Task AddSomeAsync(SomeData data)
@@ -98,11 +98,7 @@ public class SomeStoredProcRepository(IDatabaseExecutor executor)
 
 ## DatabaseConfigProvider
 
-From its documentation
-
-> Provides database-related configuration—such as connection strings, connection factories,
-> and execution styles—for a given consumer type. Enables contextual configuration resolution
-> across different layers or components in an application.
+Provides database-related configuration—such as connection strings, connection factories, and execution styles—for a given consumer type. Enables contextual configuration resolution across different layers or components in an application.
 
 ```cs
 using Wlvyr.Common.Data.Configuration;
@@ -120,12 +116,18 @@ dbConfigProviderBuilder
                 .SetDefaultConnectionName("DefaultConnectionName")
                 .SetDefaultConnectionFactory((conn)=> new SqlConnection(conn))
                 .SetDefaultExecutorKind(ExecutorKind.StoredProc)
+                
+                // Override default ExecutorKind for specific mappings.
                 .AddExecutorMapping(new(){
                     {typeof(SomeStoredProcRepository), ExecutorKind.StoredProc }
                 })
+
+                // Override default ConnectionName for specific mappings.
                 .AddConnectionNameMappings(new() {
                     {typeof(SomeRepository), "CustomConnectionname" }
                 })
+
+                // Override default ConnectionFactory for specific mappings.
                 .AddConnectionFactoryMappings(new() {
                     // just an example of a repository using a different ADO.NET provider
                     // {typeof(SomeRepository), (conn)=> new PostGressConnection(conn) }
@@ -142,7 +144,10 @@ In SimpleInjector
 container.RegisterSingleton<IDatabaseConfigProvider>(() => dbConfigProvider);
 container.RegisterSingleton<IDatabaseExecutorFactory, DatabaseExecutorFactory>();
 
-// Then something like below can be done
+// Option 1
+//
+// Advantage of this approach is it allows the repository
+// to have more than one paramater, if needed.
 public class SomeRepository {
 
     protected IDatabaseExecutor _executor;
@@ -152,12 +157,14 @@ public class SomeRepository {
     }
 }
 
-// Or something more ideal would be using the extension...SimpleInjectorDatabaseExecutorExtensions.RegisterRepository
-// Only downside with this approach is that only constructors with single parameter, IDatabaseExecutor type, can use this.
+
+// Option 2
 //
-// Checkout SimpleInjectorDatabaseExecutorExtensions.RegisterRepository
-// to implement custom for constructors with multiple parameters
-//
+// Or something more ideal would be using the extension, 
+// SimpleInjectorDatabaseExecutorExtensions.RegisterRepository 
+// in Wlvyr.Common.DI.SimpleInjector. Only downside with this 
+// approach is that only constructors with a single parameter, 
+// of IDatabaseExecutor type, can use this.
 container.RegisterRepository<ISomeRepository, SomeRepository>();
 container.RegisterRepository<ISomRepository2, SomeRepository2>();
 
@@ -191,7 +198,3 @@ IDbDataParameter implementations by ADO.NET provider
 | MySQL            | `MySqlParameter` (`MySqlConnector`)                                    |
 | SQLite           | `SQLiteParameter` (`System.Data.SQLite`)                               |
 | Oracle           | `OracleParameter` (`Oracle.ManagedDataAccess.Client`)                  |
-
-## License
-
-This project is under MIT License.

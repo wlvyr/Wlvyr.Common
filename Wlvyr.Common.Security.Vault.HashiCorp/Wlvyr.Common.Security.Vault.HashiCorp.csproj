@@ -8,20 +8,22 @@
     <PackageId>Wlvyr.Common.Security.Vault.HashiCorp</PackageId>
     <Authors>wlvyr</Authors>
     <Description>Securely loads secrets from HashiCorp Vault into .NET configuration via IConfigurationBuilder.</Description>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <PackageReleaseNotes>
-       Initial Wlvyr.Common.Security.Vault.HashiCorp
-
-        - Adds HashiCorpVaultConfigurationProvider to integrate HashiCorp Vault with .NET configuration.
-        - Supports loading secrets via AppRole authentication (Role ID + Secret ID).
-        - Secrets are injected into the IConfiguration pipeline at application startup.
-        - Includes extension method AddHashiCorpVault for streamlined setup. 
+       - **0.1.1**: Updated project metadata
+       - **0.1.0**: Initial Wlvyr.Common.Security.Vault.HashiCorp
+         - Adds HashiCorpVaultConfigurationProvider to integrate HashiCorp Vault with .NET configuration.
+         - Supports loading secrets via AppRole authentication (Role ID + Secret ID).
+         - Secrets are injected into the IConfiguration pipeline at application startup.
+         - Includes extension method AddHashiCorpVault for streamlined setup. 
     </PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="../LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>

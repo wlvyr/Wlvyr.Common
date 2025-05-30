@@ -8,15 +8,18 @@
     <PackageId>Wlvyr.Common.Data</PackageId>
     <Authors>wlvyr</Authors>
     <Description>Wlvyr.Common.Data is a reusable library that provides an ADO.NET-agnostic abstraction for executing database operations.</Description>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <PackageReleaseNotes>
-       - DatabaseExecutorFactory now throws exception when argument is null.
+       - **0.1.2**: Updated project metadata and documentation
+       - **0.1.1**: DatabaseExecutorFactory now throws exception when argument is null.
     </PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="../LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>

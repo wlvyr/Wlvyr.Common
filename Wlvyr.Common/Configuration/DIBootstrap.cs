@@ -81,8 +81,8 @@ where TAppSettings : IAppSettings
         IEnumerable<IDIConfig<TContainer, TAppSettings>> diconfigs = this.IDIConfigsFactory();
         foreach (var diConfig in diconfigs)
         {
-            // Ideally, only IDIConfig taht are expected to be configured 
-            // are included.
+            // Ideally, only IDIConfig that are expected 
+            // to be configured are included.
             if (string.IsNullOrWhiteSpace(diConfig?.GetType().FullName) ||
                 this.Configuration.ExcludedDIConfigFullNames.Contains(diConfig.GetType().FullName!))
             {

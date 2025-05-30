@@ -7,7 +7,6 @@ The Wlvyr.Common.Security.Vault.HashiCorp namespace provides integration between
 ```cs
 using Wlvyr.Common.Security.Vault.HashiCorp;
 
-
 builder.Configuration.AddHashiCorpVault(options =>
 {
     // Configuration values sourced from environment variables

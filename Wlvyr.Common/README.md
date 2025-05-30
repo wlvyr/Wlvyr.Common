@@ -1,4 +1,4 @@
-# Wlvyr.NET
+# Wlvyr.Common
 
 Wlvyr.Common is a library created to aid in common project setup.
 
@@ -50,11 +50,10 @@ public static void Main(){
 
 ```
 
-Then an implementing IDIConfig will look like
+Then, in a project that may not require Wlvyr.Common but only its interface, `Wlvyr.Common.Interface`, an implementation of `IDIConfig` will look like this:
 
 ```cs
 
-// In Some project that doesn't have to be in the same project as DIBootstrap init nor the main application project.
 using SimpleInjector;
 
 using Wlvyr.Common.Interface.Configuration;
@@ -72,7 +71,7 @@ public class SomeDIConfig : IDIConfig<Container, SomeAppSetting> {
 
 ## Mapper
 
-Allows project to define their own mapping configuration. The project doesn't require AutoMapper to be used but is based on it. To setup get all `Wlvyr.Common.Interface.Configuration.IMapperConfig<TConfigurer>` implementations, from relevant workspace projects, and initialize.
+Allow projects to define their own mapping configuration. The project doesn't require AutoMapper to be used, but is based on it. To setup, get all `Wlvyr.Common.Interface.Configuration.IMapperConfig<TConfigurer>` implementations, from relevant workspace projects, and then initialize.
 
 Example usage:
 
@@ -107,11 +106,10 @@ public static void Main()
 }
 ```
 
-Then an implementing IMapperConfig will look like
+Then, in a project that may not require Wlvyr.Common but only its interface, `Wlvyr.Common.Interface`, an implementation of `IMapperConfig` will look like this:
 
 ```cs
 
-// In Some project that doesn't have to be in the same project as MapperBootstrap init nor the main application project.
 using SimpleInjector;
 
 using Wlvyr.Common.Interface.Configuration;
@@ -125,7 +123,7 @@ public class SomeMapperConfig : IMapperConfig<MapperConfigurationExpression> {
     }
 }
 
-// if appSettings is not included, in assemblies.CreateMapperConfigs<MapperConfigurationExpression>() this will not be included.
+// If appSettings is not included in assemblies.CreateMapperConfigs<MapperConfigurationExpression>(), this will not be included.
 public class SomeMapperConfigWithAppSettingParam : IMapperConfig<MapperConfigurationExpression> {
 
     public SomeMapperConfigWithAppSettingParam(AppSettings appSettings){
@@ -141,7 +139,3 @@ public class SomeMapperConfigWithAppSettingParam : IMapperConfig<MapperConfigura
 }
 
 ```
-
-## License
-
-This project is under MIT License.

@@ -17,15 +17,18 @@
     <PackageId>Wlvyr.Common</PackageId>
     <Authors>wlvyr</Authors>
     <Description>This library aids in common project steps such (e.g. DI bootstrap).</Description>
-    <Version>0.2.3</Version>
+    <Version>0.2.4</Version>
     <PackageReleaseNotes>
-      - Mapper 
+      - **0.2.4**: Updated project metadata
+      - **0.2.3**: Mapper 
         - MappingExtensions.CreateMapperConfigs now allows IAppSettings to be included
         - IMapperConfig implementation either have parameterless constructor or constructor with IAppSettings as parameter.
     </PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="../LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>
